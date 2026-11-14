@@ -89,10 +89,10 @@ class AuthController extends Controller
             return response()->json(['error' =>  ['Unauthorised']]);
         }
         // Use sms api to send confirmation code to user number
-        // $newCode = SMS::generateCode();
-        // $user->smsCode = $newCode;
-        // $user->save();
-        // SMS::send($user->phone, ['Please don't share this code: $user->smsCode']);
+        $newCode = SMS::generateCode();
+        $user->smsCode = $newCode;
+        $user->save();
+        SMS::send($user->phone, ["Please don't share this code: $user->smsCode"]);
         
         return response()->json([
             'data' => 'SMS sent to $user->phone',
